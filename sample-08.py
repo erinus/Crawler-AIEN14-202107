@@ -10,7 +10,7 @@ urls = [
 ]
 
 def check(url):
-    m = re.match(r'^https?://\w+(\.\w+)+(:\d{1,5})?(/\w+)*(\?\w+=\w+(&\w+=\w+)*)?', url)
+    m = re.match(r'^https?://\w+(\.\w+)+(:\d{1,5})?(/\w+)*(\?\w+=\w+(\&\w+=\w+)*)?', url)
     print(m)
     return m is not None
 
