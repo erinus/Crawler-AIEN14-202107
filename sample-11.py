@@ -7,6 +7,7 @@ def GetProduct(pid):
 
     if response.status_code != 200:
         print('not 200')
+        return
 
     with open('pchome24.js', 'wb') as f:
         f.write(response.content)
