@@ -1,5 +1,6 @@
 import datetime
 import time
+import re
 
 import requests
 import pyquery
@@ -23,16 +24,19 @@ def GetPost(url):
     doc = pyquery.PyQuery(response.text)
 
     title = doc('div.p-title').text()
+
     date = doc('div.p-description time').attr('datetime')
     date = datetime.datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z')
     date = date.strftime('%Y-%m-%d %H:%M:%S')
 
+    content = doc('div.bbWrapper').text()
+    content = re.sub(r'\n+', '\n', content)
+
     print(f'標題：{title}')
     print(f'時間：{date}')
     print(f'內文：')
-    # print(content)
+    print(content)
     print('')
-
 
 def GetPostList():
     response = requests.get(
