@@ -25,8 +25,12 @@ def GetNewsList():
     # print(len(list(elms_div_flex_feature)))
 
     for elm_div_flex_feature in elms_div_flex_feature:
-        elm_span_headline = elm_div_flex_feature('div.storycard-headline > span.headline')
-        print(elm_span_headline.text())
+        # elm_span_headline = elm_div_flex_feature('div.storycard-headline > span.headline')
+        # print(elm_span_headline.text())
+        elm_a_url = elm_div_flex_feature('a')
+        url = elm_a_url.attr('href')
+        url = f'https://tw.appledaily.com{url}'
+        print(url)
 
 if __name__ == '__main__':
     GetNewsList()
