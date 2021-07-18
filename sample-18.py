@@ -1,3 +1,4 @@
+import csv
 import datetime
 
 import requests
@@ -30,10 +31,10 @@ def GetStockDailyInfo(stock):
 
     # print(response.content.decode(res['encoding']))
     data = content.decode(res['encoding'])
+
+    ##### 非 CSV 套件作法 #####
     lines = data.split('\n')
     lines = lines[2:-6]
-    # print('\n'.join(lines))
-
     for line in lines:
         cells = line.split('","')
         cells[0] = cells[0][1:]
@@ -43,6 +44,16 @@ def GetStockDailyInfo(stock):
             for cell in cells
         ]
         print(cells)
+
+    ##### CSV 套件作法 #####
+    lines = data.split('\n')
+    lines = lines[1:-6]
+    reader = csv.DictReader(lines)
+    for row in reader:
+        for key, value in row.items():
+            row[key] = value.replace(',', '')
+        row.pop('', None)
+        print(row)
 
 if __name__ == '__main__':
     stock = '2330'
