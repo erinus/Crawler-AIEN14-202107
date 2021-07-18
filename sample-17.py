@@ -43,7 +43,14 @@ def SearchProducts(keyword):
         print('NOT 200')
         return
 
-    print(response.json())
+    for item in response.json()['items']:
+        item = item['item_basic']
+        name = item['name']
+        price_min = int(item['price_min'] / 100000)
+        price_max = int(item['price_max'] / 100000)
+        print(f'品名：{name}')
+        print(f'價格：{price_min} ~ {price_max}')
+        print('')
 
 if __name__ == '__main__':
     res = CheckStatus()
