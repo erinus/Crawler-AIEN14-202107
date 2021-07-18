@@ -45,7 +45,7 @@ def GetNews(url):
         content.append(elm_p.text())
     content = '\n'.join(content)
 
-    elm_img = doc('div#article-body di#promo-image-box figure img')
+    elm_img = doc('div#article-body div#promo-image-box figure img')
     print(elm_img)
 
     print(f'標題：{title}')
