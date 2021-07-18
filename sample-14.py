@@ -39,8 +39,19 @@ def GetNews(url):
     if date.startswith('更新時間：'):
         date = date[5:].strip()
 
+    content = []
+    elms_p = doc('div#articleBody section p').items()
+    for elm_p in elms_p:
+        content.append(elm_p.text())
+    content = '\n'.join(content)
+
+    elm_img = doc('div#article-body di#promo-image-box figure img')
+    print(elm_img)
+
     print(f'標題：{title}')
     print(f'時間：{date}')
+    print(f'內文：')
+    print(content)
     print('')
 
 def GetNewsList():
