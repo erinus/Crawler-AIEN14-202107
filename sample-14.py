@@ -1,3 +1,4 @@
+import datetime
 import time
 
 import requests
@@ -20,13 +21,26 @@ def GetNews(url):
         f.write(response.content)
 
     doc = pyquery.PyQuery(response.text)
+
     elm_h1 = doc('div#article-header h1')
     title = elm_h1.text()
+
     elm_div_timestamp = doc('div#article-header div.timestamp')
-    datetime = elm_div_timestamp.text()
+    date = elm_div_timestamp.text()
+
+    if date.endswith('分鐘前'):
+        minutes = int(date[:-3])
+        date = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        date = date.strftime('%Y-%m-%d %H:%M')
+    if date.endswith('小時前'):
+        hours = int(date[:-3])
+        date = datetime.datetime.now() - datetime.timedelta(hours=hours)
+        date = date.strftime('%Y-%m-%d %H:%M')
+    if date.startswith('更新時間：'):
+        date = date[5:].strip()
 
     print(f'標題：{title}')
-    print(f'時間：{datetime}')
+    print(f'時間：{date}')
     print('')
 
 def GetNewsList():
