@@ -23,12 +23,26 @@ def GetStockDailyInfo(stock):
     with open('stock.csv', 'rb') as f:
         content = f.read()
     res = chardet.detect(content)
+
     if res['confidence'] < 0.7:
         print('UNKNOWN ENCODING')
         return
 
     # print(response.content.decode(res['encoding']))
-    print(content.decode(res['encoding']))
+    data = content.decode(res['encoding'])
+    lines = data.split('\n')
+    lines = lines[2:-6]
+    # print('\n'.join(lines))
+
+    for line in lines:
+        cells = line.split('","')
+        cells[0] = cells[0][1:]
+        cells[-1] = cells[-1][:-3]
+        cells = [
+            cell.replace(',', '')
+            for cell in cells
+        ]
+        print(cells)
 
 if __name__ == '__main__':
     stock = '2330'
