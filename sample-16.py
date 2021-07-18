@@ -9,7 +9,7 @@ def GetPost(url):
     response = requests.get(
         url=url,
         headers={
-            'referer': f'https://www.google.com/',
+            'referer': f'https://www.coolaler.com/reviews/',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
     )
@@ -17,7 +17,7 @@ def GetPost(url):
         print('NOT 200')
         return
 
-    with open('apple.html', 'wb') as f:
+    with open('coolar.html', 'wb') as f:
         f.write(response.content)
 
     doc = pyquery.PyQuery(response.text)
@@ -43,8 +43,10 @@ def GetPostList():
 
     for elm_div_porta_article_item in elms_div_porta_article_item:
         elm_a = elm_div_porta_article_item('a.porta-article-header a')
-        print(elm_a.text())
-
+        url = elm_a.attr('href')
+        url = f'https://www.coolaler.com{url}'
+        GetPost(url)
+        time.sleep(1)
 
 if __name__ == '__main__':
     GetPostList()
