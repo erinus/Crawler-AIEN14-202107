@@ -20,7 +20,13 @@ def GetNewsList():
         f.write(response.content)
 
     doc = pyquery.PyQuery(response.text)
-    elm_div_flex_feature = doc('div.article-list-container div.flex-feature').items()
+    elms_div_flex_feature = doc('div.article-list-container div.flex-feature').items()
+
+    # print(len(list(elms_div_flex_feature)))
+
+    for elm_div_flex_feature in elms_div_flex_feature:
+        elm_span_headline = elm_div_flex_feature('div.storycard-headline > span.headline')
+        print(elm_span_headline.text())
 
 if __name__ == '__main__':
     GetNewsList()
