@@ -1,4 +1,4 @@
-import json
+# import json
 
 import requests
 
@@ -14,7 +14,8 @@ def GetYoubikeSites():
         print('NOT 200')
         return
 
-    sites = json.loads(response.text)
+    # sites = json.loads(response.text)
+    sites = response.json()
     for site in sites:
         name = site['sna']
         available = site['sbi']
