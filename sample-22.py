@@ -36,8 +36,8 @@ for index, article in enumerate(articles):
     # print(counts)
     counts = counts.most_common(10)
     # print(counts)
-    document = [' '.join(tokens)]
-    tfidf_model = TfidfVectorizer(token_pattern=r'(?u)\b\w+\b').fit(document)
+    document = ' '.join(tokens)
+    tfidf_model = TfidfVectorizer(token_pattern=r'(?u)\b\w+\b').fit([document])
     analysis.append({
         'index': index + 1,
         'tokens': tokens,
@@ -46,4 +46,17 @@ for index, article in enumerate(articles):
         'model': tfidf_model
     })
 # print(analysis)
-# analysis = munch.munchify(analysis)
+analysis = munch.munchify(analysis)
+
+articleTokens = [
+    item.document
+    for item in analysis
+]
+articleTFIDF = TfidfVectorizer().fit_transform(articleTokens)
+
+for item in analysis:
+    document = item.document
+    documentTFIDF = TfidfVectorizer.fit(articleTokens)
+    documentTFIDF = documentTFIDF.trandform([document])
+    similartiy = cosine_similarity(documentTFIDF, articleTFIDF).flattern()
+    print(similartiy)
