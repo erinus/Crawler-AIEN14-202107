@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import jieba
 
 articles = [
@@ -8,6 +10,17 @@ articles = [
 
 jieba.load_userdict('userdict.txt')
 
+ignores = [
+    '，', '。', '：', '；', '、', '！', '？', '」', '「', '（', '）', '／', '《', '》',
+    '的', '也', '與', '有', '你', '我', '你', '妳', '他', '她'
+]
+
 for article in articles:
     tokens = jieba.cut(article, cut_all=False)
     tokens = list(tokens)
+    tokens = [
+        token
+        for token in tokens
+        if token not in ignores
+    ]
+    print(tokens)
