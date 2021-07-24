@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import collections
+import itertools
 import re
 
 import jieba
@@ -18,7 +19,8 @@ ignores = [
     '的', '也', '與', '有', '你', '我', '你', '妳', '他', '她'
 ]
 
-for article in articles:
+analysis = []
+for index, article in enumerate(articles):
     tokens = jieba.cut(article, cut_all=False)
     tokens = list(tokens)
     tokens = [
@@ -30,4 +32,11 @@ for article in articles:
     counts = collections.Counter(tokens)
     # print(counts)
     counts = counts.most_common(10)
-    print(counts)
+    # print(counts)
+    analysis.append({
+        'index': index + 1,
+        'tokens': tokens,
+        'counts': counts
+    })
+
+print(analysis)
