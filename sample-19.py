@@ -12,11 +12,12 @@ def TestChrome():
     with open('password.txt', 'r') as f:
         password = f.read()
 
-    # mobile_emulation = { 'deviceName': 'Google Nexus 5' }
+    mobile_emulation = { 'deviceName': 'Nexus 5' }
 
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    # options.add_experimental_option('mobileEmulation', mobile_emulation)
+    options.add_experimental_option('mobileEmulation', mobile_emulation)
+    # options.add_argument('--window-size=240,720')
     # options.add_argument('--kiosk')
 
     driver = webdriver.Chrome(chrome_options=options)
