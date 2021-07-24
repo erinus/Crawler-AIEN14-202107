@@ -58,3 +58,5 @@ for pair in pairs:
     same_words = set(article0_words).intersection(set(article1_words))
     # print(same_words)
     total_words = set(article0_words).union(set(article1_words))
+    similarity = len(same_words) / len(total_words)
+    print(similarity)
