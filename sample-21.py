@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import collections
+import re
+
 import jieba
 
 articles = [
@@ -21,6 +24,10 @@ for article in articles:
     tokens = [
         token
         for token in tokens
-        if token not in ignores
+        if token not in ignores and len(token) > 1 and re.match(r'^\d+$', token) is None
     ]
-    print(tokens)
+    # print(tokens)
+    counts = collections.Counter(tokens)
+    # print(counts)
+    counts = counts.most_common(10)
+    print(counts)
