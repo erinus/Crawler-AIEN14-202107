@@ -48,15 +48,15 @@ for index, article in enumerate(articles):
 # print(analysis)
 analysis = munch.munchify(analysis)
 
-articleTokens = [
+articlesTokens = [
     item.document
     for item in analysis
 ]
-articleTFIDF = TfidfVectorizer().fit_transform(articleTokens)
+articlesTFIDF = TfidfVectorizer().fit_transform(articlesTokens)
 
 for item in analysis:
-    document = item.document
-    documentTFIDF = TfidfVectorizer().fit(articleTokens)
-    documentTFIDF = documentTFIDF.transform([document])
-    similartiy = cosine_similarity(documentTFIDF, articleTFIDF).flatten()
+    article = item.document
+    articleTFIDF = TfidfVectorizer().fit(articlesTokens)
+    articleTFIDF = articleTFIDF.transform([article])
+    similartiy = cosine_similarity(articleTFIDF, articlesTFIDF).flatten()
     print(similartiy)
