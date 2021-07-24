@@ -2,6 +2,7 @@
 
 import collections
 import itertools
+import munch
 import re
 
 import jieba
@@ -39,7 +40,21 @@ for index, article in enumerate(articles):
         'counts': counts
     })
 # print(analysis)
+analysis = munch.munchify(analysis)
 
 pairs = itertools.combinations(analysis, 2)
 for pair in pairs:
-    print(f'{pair[0]["index"]}-{pair[1]["index"]}')
+    print(f'{pair[0].index}-{pair[1].index}')
+    article0 = pair[0]
+    article1 = pair[1]
+    article0_words = [
+        count[0]
+        for count in article0.counts
+    ]
+    article1_words = [
+        count[0]
+        for count in article1.counts
+    ]
+    same_words = set(article0_words).intersection(set(article1_words))
+    # print(same_words)
+    total_words = set(article0_words).union(set(article1_words))
