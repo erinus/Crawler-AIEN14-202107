@@ -56,7 +56,7 @@ articleTFIDF = TfidfVectorizer().fit_transform(articleTokens)
 
 for item in analysis:
     document = item.document
-    documentTFIDF = TfidfVectorizer.fit(articleTokens)
-    documentTFIDF = documentTFIDF.trandform([document])
-    similartiy = cosine_similarity(documentTFIDF, articleTFIDF).flattern()
+    documentTFIDF = TfidfVectorizer().fit(articleTokens)
+    documentTFIDF = documentTFIDF.transform([document])
+    similartiy = cosine_similarity(documentTFIDF, articleTFIDF).flatten()
     print(similartiy)
