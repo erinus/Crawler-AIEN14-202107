@@ -2,14 +2,16 @@ import requests
 import pyquery
 
 def GetData(proxies):
+    print('GetData')
     for proxy in proxies:
         try:
-            response = requests.get('<URL>', proxies=proxy, timeout=5)
+            response = requests.get('https://24h.pchome.com.tw', proxies=proxy, timeout=5)
             if response.status_code != 200:
                 print('NOT 200')
                 continue
             print(response.text)
-        except:
+        except Exception as e:
+            print(e)
             continue
         break
 
