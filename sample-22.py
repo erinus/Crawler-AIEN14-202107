@@ -6,6 +6,8 @@ import re
 
 import jieba
 import munch
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 articles = [
     '中央疫情指揮中心昨宣布，全國疫情警戒自27日起至8月9日降為二級，指揮中心也公布相關鬆綁措施指引。政院官員今（24日）表示，政府會以14天為周期觀察，疫情狀況決定鬆綁條件，「疫情控制愈好，進一步鬆綁等都有可能」。《中央社》報導，行政院政院官員表示，疫情警戒降級仍是以14天為周期做觀察，疫情控制好壞決定了鬆綁條件，疫情控制越好，回復正常生活機率就越高，若疫情嚴峻，當然就會受比較強的管制。官員表示，過去公布的二級管制措施，集會活動室內可100人、室外500人，不過目前僅開放室內50人、室外100人；也就是說，若疫情持續趨緩、受控，只剩零星感染，管制措施就有更加鬆綁的空間。《中央社》報導，官員也強調，通則仍持續戴口罩。對於基隆市長林右昌質疑降級設期限，恐導致民眾猛爆性出遊、餐敘、消費。官員說明，目前疫情宣布降級或升級都以兩週為周期，這是參考疫情潛伏期而定，過去雖出現超過14天的周期，是為了配合國定假期所做的些微調整。（政治中心／台北報導）',
@@ -34,29 +36,14 @@ for index, article in enumerate(articles):
     # print(counts)
     counts = counts.most_common(10)
     # print(counts)
+    document = [' '.join(tokens)]
+    tfidf_model = TfidfVectorizer(token_pattern=r'(?u)\b\w+\b').fit(document)
     analysis.append({
         'index': index + 1,
         'tokens': tokens,
-        'counts': counts
+        'counts': counts,
+        'document': document,
+        'model': tfidf_model
     })
 # print(analysis)
-analysis = munch.munchify(analysis)
-
-pairs = itertools.combinations(analysis, 2)
-for pair in pairs:
-    print(f'{pair[0].index}-{pair[1].index}')
-    article0 = pair[0]
-    article1 = pair[1]
-    article0_words = [
-        count[0]
-        for count in article0.counts
-    ]
-    article1_words = [
-        count[0]
-        for count in article1.counts
-    ]
-    same_words = set(article0_words).intersection(set(article1_words))
-    # print(same_words)
-    total_words = set(article0_words).union(set(article1_words))
-    similarity = len(same_words) / len(total_words)
-    print(similarity)
+# analysis = munch.munchify(analysis)
