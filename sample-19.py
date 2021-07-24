@@ -6,11 +6,12 @@ from selenium.webdriver.common.keys import Keys
 def TestChrome():
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
+    options.add_argument('--kiosk')
 
     driver = webdriver.Chrome(chrome_options=options)
     driver.get('https://www.facebook.com/')
 
-    time.sleep(5)
+    time.sleep(15)
 
     driver.quit()
 
