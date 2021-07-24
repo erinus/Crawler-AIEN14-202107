@@ -38,5 +38,8 @@ for index, article in enumerate(articles):
         'tokens': tokens,
         'counts': counts
     })
+# print(analysis)
 
-print(analysis)
+pairs = itertools.combinations(analysis, 2)
+for pair in pairs:
+    print(f'{pair[0]["index"]}-{pair[1]["index"]}')
